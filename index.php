@@ -1,3 +1,16 @@
+<?php
+include 'dbconnect.php';
+session_start();
+
+if (isset($_SESSION['user'])) {
+    echo "<h1> session start </h1>";
+   }else{
+    echo "<h1> session not start </h1>";
+   }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 

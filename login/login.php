@@ -1,8 +1,13 @@
 <?php 
 
-session_start();
 
 require '../dbconnect.php';
+session_start();
+
+if (isset($_SESSION['user'])) {
+  header("Location: ../user-dashboard/dashboard.php?login=success");
+ }
+
 
 if(isset($_POST['btn-login'])){;
 		$email = filter_var($_POST["email"], FILTER_SANITIZE_STRING);
