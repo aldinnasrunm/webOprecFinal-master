@@ -31,13 +31,9 @@ if (isset($_POST['submit-update'])) {
 
 $dataUser = mysqli_query($conn, "SELECT * FROM user WHERE userid = '$id'");
 
-// $resultUser = mysqli_query($conn, "SELECT * FROM user WHERE useremail = '$email'");
-// $user = mysqli_fetch_assoc($resultUser);
-
+//check apakah sudah pernah mendaftar
 $registered =mysqli_query($conn, "SELECT * FROM tb_registrationData WHERE id = '$id'" );
-
-echo mysqli_num_rows($registered);
-
+//jika belum pernah mendaftar maka munculkan form
 if(!mysqli_num_rows($registered) > 0){
 
     $textReplaced = '<form method="POST" class="mx-4" id="form-registraion">
@@ -73,8 +69,9 @@ if(!mysqli_num_rows($registered) > 0){
 
 }else{
 
-    $textReplaced = '<div class="registered mx-auto">
-    <h1>kamu sudah mendaftar</h1></div>';
+    $textReplaced = '<div class="registered d-flex flex-column justify-content-center p-2">
+    <i class="mdi mdi-checkbox-marked-circle-outline fs-4 mx-auto mdi-48px"></i>
+    <h1 class="mx-auto">kamu sudah mendaftar</h1></div>';
 
 }
 
@@ -139,8 +136,9 @@ if(isset($_POST['btn-submit'])){
         <!-- ============================================================== -->
         <!-- Container fluid  -->
         <!-- ============================================================== -->
-
+        <!-- untuk menampilkan di dalam htmlnya -->
         <?php echo $textReplaced; ?>
+
         <!-- <form method="POST" class="mx-4" id="form-registraion">
             <div class="form-group ">
                 <label for="form-nim">NIM</label>

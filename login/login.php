@@ -76,6 +76,7 @@ if(isset($_POST['btn-login'])){;
             <input type="submit" name="btn-login" value="Login" class="btn solid" />
           </form>
           <?php
+          
 if(isset($_POST['btn-daftar'])){
 // cek konfirmasi password
 echo "<script>console.log('btn-daftar clicked!!' );</script>";

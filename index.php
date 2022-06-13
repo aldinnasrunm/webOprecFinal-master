@@ -3,10 +3,27 @@ include 'dbconnect.php';
 session_start();
 
 if (isset($_SESSION['id'])) {
-    echo "<h1> ".$_SESSION['id']." </h1>";
-   }else{
-    echo "<h1> session not start </h1>";
-   }
+    // echo "<h1> ".$_SESSION['id']." </h1>";
+
+    $uid = $_SESSION['id'];
+    //get user data then assoc it
+    $userResult = mysqli_query($conn, "SELECT * FROM user WHERE userid = '$uid'");
+    $user = mysqli_fetch_assoc($userResult);
+
+
+    $profileImgStatResult = mysqli_query($conn, "SELECT * FROM profileImg WHERE userid = '$uid'");
+    $profileImgStat = mysqli_fetch_assoc($profileImgStatResult);
+
+    if ($profileImgStat['status'] == 0) {
+        $profile = "<span><a href='login/login.php'>{$user['nama']} <img src ='./uploads/defaultprofile.svg' width=40></a></span>";
+    } else {
+        $profile = "<span><a href='login/login.php'>{$user['nama']} <img src ='./uploads/profile{$user['userid']}.jpg?" . mt_rand() . "' width=40></a></span>";
+    }
+} else {
+    // echo "<h1> session not start </h1>";
+    $profile = "<li><a href='login/login.php'><span>LOGIN/REGISTER</span><img src ='./uploads/defaultprofile.svg' width=40></a></li>";
+}
+
 
 ?>
 
@@ -25,8 +42,7 @@ if (isset($_SESSION['id'])) {
     <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
-        type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
@@ -37,9 +53,7 @@ if (isset($_SESSION['id'])) {
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="#page-top"><img src="assets/img/navbar-logo.png" alt="..." />HIMATIF</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars ml-1"></i>
             </button>
@@ -49,8 +63,7 @@ if (isset($_SESSION['id'])) {
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#timeline">TIMELINE</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">DIVISION</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">CONTACT US</a></li>
-                    <li class="nav-item"><a class="btn-secondary js-scroll-trigger"
-                            href="login/login.php"><span>LOGIN/REGISTER</span></a></li>
+                    <li class="nav-item"><a class="btn-secondary js-scroll-trigger" href="login/login.php"><?php echo $profile; ?></a></li>
 
                 </ul>
             </div>
@@ -80,8 +93,7 @@ if (isset($_SESSION['id'])) {
             </div>
             <ul class="timeline">
                 <li>
-                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/timeline/1.jpg"
-                            alt="" /></div>
+                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/timeline/1.jpg" alt="" /></div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
                             <h4>REGISTRATION</h4>
@@ -95,8 +107,7 @@ if (isset($_SESSION['id'])) {
                     </div>
                 </li>
                 <li class="timeline-inverted">
-                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/timeline/2.jpg"
-                            alt="" /></div>
+                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/timeline/2.jpg" alt="" /></div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
                             <h4>TECHNICAL MEETING</h4>
@@ -110,8 +121,7 @@ if (isset($_SESSION['id'])) {
                     </div>
                 </li>
                 <li>
-                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/timeline/3.jpg"
-                            alt="" /></div>
+                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/timeline/3.jpg" alt="" /></div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
                             <h4>OPEN RECRUITMENT</h4>
@@ -228,16 +238,13 @@ if (isset($_SESSION['id'])) {
                     <a href="#!"><img class="img-fluid d-block mx-auto" src="assets/img/logos/envato.jpg" alt="" /></a>
                 </div>
                 <div class="col-md-3 col-sm-6 my-3">
-                    <a href="#!"><img class="img-fluid d-block mx-auto" src="assets/img/logos/designmodo.jpg"
-                            alt="" /></a>
+                    <a href="#!"><img class="img-fluid d-block mx-auto" src="assets/img/logos/designmodo.jpg" alt="" /></a>
                 </div>
                 <div class="col-md-3 col-sm-6 my-3">
-                    <a href="#!"><img class="img-fluid d-block mx-auto" src="assets/img/logos/themeforest.jpg"
-                            alt="" /></a>
+                    <a href="#!"><img class="img-fluid d-block mx-auto" src="assets/img/logos/themeforest.jpg" alt="" /></a>
                 </div>
                 <div class="col-md-3 col-sm-6 my-3">
-                    <a href="#!"><img class="img-fluid d-block mx-auto" src="assets/img/logos/creative-market.jpg"
-                            alt="" /></a>
+                    <a href="#!"><img class="img-fluid d-block mx-auto" src="assets/img/logos/creative-market.jpg" alt="" /></a>
                 </div>
             </div>
         </div>
@@ -255,28 +262,21 @@ if (isset($_SESSION['id'])) {
                 <div class="row align-items-stretch mb-5">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input class="form-control" name="nama" id="name" type="text" placeholder="Your Name *"
-                                required="required" data-validation-required-message="Please enter your name." />
+                            <input class="form-control" name="nama" id="name" type="text" placeholder="Your Name *" required="required" data-validation-required-message="Please enter your name." />
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="form-group">
-                            <input class="form-control" name="email" id="email" type="email" placeholder="Your Email *"
-                                required="required"
-                                data-validation-required-message="Please enter your email address." />
+                            <input class="form-control" name="email" id="email" type="email" placeholder="Your Email *" required="required" data-validation-required-message="Please enter your email address." />
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="form-group mb-md-0">
-                            <input class="form-control" name="no_hp" id="phone" type="tel" placeholder="Your Phone *"
-                                required="required"
-                                data-validation-required-message="Please enter your phone number." />
+                            <input class="form-control" name="no_hp" id="phone" type="tel" placeholder="Your Phone *" required="required" data-validation-required-message="Please enter your phone number." />
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group form-group-textarea mb-md-0">
-                            <textarea class="form-control" name="pesan" id="message" placeholder="Your Message *"
-                                required="required"
-                                data-validation-required-message="Please enter a message."></textarea>
+                            <textarea class="form-control" name="pesan" id="message" placeholder="Your Message *" required="required" data-validation-required-message="Please enter a message."></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
