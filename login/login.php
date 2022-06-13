@@ -80,7 +80,6 @@ if(isset($_POST['btn-daftar'])){
 // cek konfirmasi password
 echo "<script>console.log('btn-daftar clicked!!' );</script>";
   if($_POST['password'] == $_POST['konfirmasi_password']){
-    echo '<script> alert("ok lnjt");</script>';
     //cek apakah email sudah pernah digunakan
     $nama = mysqli_real_escape_string($conn,$_POST['nama']);
     $email = mysqli_real_escape_string($conn,$_POST['email']);
@@ -89,33 +88,39 @@ echo "<script>console.log('btn-daftar clicked!!' );</script>";
     $lihat1 = mysqli_query($conn,"select * from user where useremail='$email'");
     $lihat2 = mysqli_num_rows($lihat1);
     $password = password_hash($password, PASSWORD_DEFAULT);
-    echo '<script> alert('.$lihat2.');</script>';
+    // echo '<script> alert('.$lihat2.');</script>';
       if($lihat2 < 1){
     //email belum pernah digunakan
-        $insert = mysqli_query($conn,"insert into user (nama,useremail,userpassword, tgldaftar) values ('$nama','$email','$password', '$dateFormat')");
+        $insert = mysqli_query($conn,"insert into user (nama,useremail,userpassword,alamat, no_hp, tgldaftar) values ('$nama','$email','$password','','', '$dateFormat')");
+        $getUserId = mysqli_query($conn, "SELECT userid FROM user WHERE useremail = '$email';");
+        $userId = $getUserId->fetch_array()['userid'];
+        $profileImgCreate = mysqli_query($conn, "INSERT INTO profileImg(userid, status) value($userId, 0);");
         //eksekusi query
-          if($insert){
+          if($insert && $profileImgCreate){
               // echo '<script> alert("ok");</script>';
+              $_SESSION['id'] = $userId;
+              $_SESSION['user'] = true;
               echo "<div class='alert alert-success' role='alert'> Registrasi Berhasil, silahkan login.</div>
-              <meta http-equiv='refresh' content='2; url= login.phpl'/>  ";
+              <meta http-equiv='refresh' content='2; url= login.php'/>  ";
           } else {
               //daftar gagal
               // echo '<script> alert("gagal");</script>';
               echo "<div class='alert alert-warning'>Registrasi gagal, silakan coba lagi.</div>
-              <meta http-equiv='refresh' content='2'>";
+              <meta http-equiv='refresh' content='2' url= login.php'/>";
           }
       } else {
           //jika email sudah pernah digunakan
-          // echo '<script> alert("email sdh digunakan");</script>';
-          $alert = '<strong><font color="red">Email sudah pernah digunakan!</font></strong>';
-          echo '<meta http-equiv="refresh" content="2">';
+          // echo '<script> alert("email sdh digunakan");</script>';;
+          echo "<div class='alert alert-warning'>Email sudah pernah dipakai, silakan coba lagi.</div>
+              <meta http-equiv='refresh' content='2' url= login.php'/>";
           }
   } else{
     // echo '<script> alert("password hasrus sama");</script>';
-    $alert = '<strong><font color="red">pastikan password sama</font></strong>';
-    echo '<meta http-equiv="refresh" content="2" url="registrasi.php">';
+    echo "<div class='alert alert-warning'>Password harus sama, silakan coba lagi.</div>
+              <meta http-equiv='refresh' content='2' url= login.php'/>";
     }
 };
+
 ?>
           <form method="post" class="sign-up-form">
             <h2 class="title">Daftar</h2>

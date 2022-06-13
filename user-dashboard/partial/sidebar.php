@@ -17,7 +17,7 @@ $id = $_SESSION['id'];
 						<!-- ============================================================== -->
 						<!-- Logo -->
 						<!-- ============================================================== -->
-						<a class="navbar-brand" href="./dashboard.php">
+						<a class="navbar-brand" href="../index.php">
 							<!-- Logo icon -->
 							<b class="logo-icon">
 								<!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -113,6 +113,16 @@ $id = $_SESSION['id'];
 									aria-expanded="false"
 									><i class="mdi mdi-account-box"></i
 									><span class="hide-menu">Profile</span></a
+								>
+							</li>
+							<!-- pendaftaran -->
+							<li class="sidebar-item">
+								<a
+									class="sidebar-link waves-effect waves-dark sidebar-link"
+									href="./pages-registration.php"
+									aria-expanded="false"
+									><i class="mdi mdi-book-open-page-variant"></i
+									><span class="hide-menu">Pendaftaran</span></a
 								>
 							</li>
 							<li class="sidebar-item">

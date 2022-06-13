@@ -2,8 +2,8 @@
 include 'dbconnect.php';
 session_start();
 
-if (isset($_SESSION['user'])) {
-    echo "<h1> session start </h1>";
+if (isset($_SESSION['id'])) {
+    echo "<h1> ".$_SESSION['id']." </h1>";
    }else{
     echo "<h1> session not start </h1>";
    }
