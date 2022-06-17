@@ -15,6 +15,15 @@ include('partial/head.php');
 $result = mysqli_query($conn, "SELECT * FROM tb_registrationData ORDER BY id DESC");
 $data   = mysqli_num_rows($result);
 
+if(isset($_GET['del'])){
+    $id = $_GET['del'];
+    $delete = mysqli_query($conn, "DELETE FROM tb_registrationData WHERE id = $id");
+    if($delete){
+        header('pages-location.php');
+    }
+}
+
+
 ?>
 
 
@@ -73,6 +82,7 @@ $data   = mysqli_num_rows($result);
                         <th scope="col">NAMA</th>
                         <th scope="col">NIM</th>
                         <th scope="col">Angkatan</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -89,6 +99,7 @@ $data   = mysqli_num_rows($result);
                                 ?></td>
                                 <td><?= $regisData['nim'] ?></td>
                                 <td><?= $regisData['angkatan'] ?></td>
+                                <td><a type="submit" name="btn-deleteData" class="btn btn-danger" href="pages-registerdata.php?del=<?php echo $id; ?>" >Delete</a></td>
                             </tr>
                         </div>
                     <?php endforeach; ?>
