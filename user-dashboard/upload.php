@@ -1,9 +1,7 @@
 <?php
-//upload but not in databse
 
 session_start();
 require '../dbconnect.php';
-
 
 if(isset($_POST['submitUpload'])){
     $file = $_FILES['file'];
@@ -34,8 +32,5 @@ if(isset($_POST['submitUpload'])){
         echo "Error: ".$file['error'];
         }
     }
-
-
-
 
 ?>

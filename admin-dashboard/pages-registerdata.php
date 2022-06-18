@@ -23,6 +23,16 @@ if(isset($_GET['del'])){
     }
 }
 
+if(isset($_GET['prt'])){
+    $id = $_GET['prt'];
+    $_SESSION['idPDF'] = $id;
+    echo "<script>
+
+    window.open('../pdf.php', '_blank');
+    
+    </script>";
+}
+
 
 ?>
 
@@ -99,6 +109,7 @@ if(isset($_GET['del'])){
                                 ?></td>
                                 <td><?= $regisData['nim'] ?></td>
                                 <td><?= $regisData['angkatan'] ?></td>
+                                <td><a type="submit" name="btn-printData" class="btn btn-primary" href="pages-registerdata.php?prt=<?php echo $id; ?>" >Print</a></td>
                                 <td><a type="submit" name="btn-deleteData" class="btn btn-danger" href="pages-registerdata.php?del=<?php echo $id; ?>" >Delete</a></td>
                             </tr>
                         </div>
