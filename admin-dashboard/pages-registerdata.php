@@ -1,9 +1,7 @@
 <?php
 session_start();
 
-
 include '../dbconnect.php';
-
 
 if (!isset($_SESSION['admin'])) {
     header("Location: ../login/login.php");
@@ -26,33 +24,16 @@ if(isset($_GET['del'])){
 if(isset($_GET['prt'])){
     $id = $_GET['prt'];
     $_SESSION['idPDF'] = $id;
-    echo "<script>
-
-    window.open('../pdf.php', '_blank');
-    
-    </script>";
+    echo "<script> window.open('../pdf.php', '_blank');</script>";
 }
-
 
 ?>
 
-
-
-
-<!-- ============================================================== -->
-<!-- Main wrapper - style you can find in pages.scss -->
-<!-- ============================================================== -->
 <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
     <?php
     include "partial/sidebar.php"
     ?>
-    <!-- ============================================================== -->
-    <!-- Page wrapper  -->
-    <!-- ============================================================== -->
     <div class="page-wrapper">
-        <!-- ============================================================== -->
-        <!-- Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
         <div class="page-breadcrumb">
             <div class="row align-items-center">
                 <div class="col-6">
@@ -66,14 +47,6 @@ if(isset($_GET['prt'])){
                 </div>
             </div>
         </div>
-        <!-- ============================================================== -->
-        <!-- End Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Container fluid  -->
-        <!-- ============================================================== -->
-        <!-- untuk menampilkan di dalam htmlnya -->
-        <!-- <?php echo $textReplaced; ?> -->
 
         <div class="container">
             <h1 class="text-center">Data Pendaftar</h1>
@@ -121,24 +94,9 @@ if(isset($_GET['prt'])){
         <div class="container-fluid">
 
         </div>
-        <!-- ============================================================== -->
-        <!-- End Container fluid  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- footer -->
-        <!-- ============================================================== -->
         <footer class="footer text-center">
             All Rights Reserved by Flexy Admin. Designed and Developed by <a href="https://www.wrappixel.com">WrapPixel</a>.
         </footer>
-        <!-- ============================================================== -->
-        <!-- End footer -->
-        <!-- ============================================================== -->
     </div>
-    <!-- ============================================================== -->
-    <!-- End Page wrapper  -->
-    <!-- ============================================================== -->
 </div>
-<!-- ============================================================== -->
-<!-- End Wrapper -->
-<!-- ============================================================== -->
 <?php include './partial/js.php' ?>
