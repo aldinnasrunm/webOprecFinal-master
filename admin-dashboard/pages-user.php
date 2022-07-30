@@ -13,6 +13,27 @@ include('partial/head.php');
 $result = mysqli_query($conn, "SELECT * FROM user ORDER BY userid DESC");
 $data   = mysqli_num_rows($result);
 
+
+//listes from get, and delete data
+if(isset($_GET['del'])){
+    $id = $_GET['del'];
+    $isRegistered = mysqli_query($conn, "SELECT * FROM tb_registrationData WHERE id = $id");
+    if(mysqli_num_rows($isRegistered) > 0){
+        $delete = mysqli_query($conn, 
+        "DELETE user,tb_registrationData FROM user
+        INNER JOIN tb_registrationData
+        ON user.userid = tb_registrationData.id WHERE user.userid = $id");
+    }else{
+        $delete = mysqli_query($conn, "DELETE FROM user WHERE userid = $id");
+    }
+    
+    if($delete){
+        // header('pages-user.php');
+        header("Refresh:0; url=pages-user.php");
+    }
+}
+
+
 ?>
 <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
     <?php
@@ -55,10 +76,15 @@ $data   = mysqli_num_rows($result);
                     foreach ($result as $user) : ?>
                         <div>
                             <tr>
+                                <?php
+                                    $id = $user['userid'];
+                                ?>
                                 <th scope="row"><?= $no++ ?></th>
                                 <td><?= $user['nama'] ?></td>
                                 <td><?= $user['useremail'] ?></td>
                                 <td><?= $user['tgldaftar'] ?></td>
+                                <!-- button -->
+                                <td><a type="submit" name="btn-deleteData" class="btn btn-danger" href="pages-user.php?del=<?php echo $id; ?>" >Delete</a></td>
                             </tr>
                         </div>
                     <?php endforeach; ?>
